@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Chart.Name }}
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+    networking.gke.io/internal-load-balancer-allow-global-access: "true"
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.service.dnsName }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - protocol: TCP
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  selector:
+    app.kubernetes.io/name: {{ .Release.Name }}

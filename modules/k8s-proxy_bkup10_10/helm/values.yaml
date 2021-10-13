@@ -1,0 +1,12 @@
+replicasCount: 1
+image:
+  repository: gcr.io/project_id
+  name: k8s-api-proxy
+  tag: 0.1
+  pullPolicy: IfNotPresent
+containerPort: 8118
+service:
+  type: LoadBalancer
+  port: 443
+  targetPort: 8118
+  dnsName: k8s-proxy
